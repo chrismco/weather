@@ -53,7 +53,7 @@ class Home extends Component {
         let newValue = parseInt(value);
 
 
-        if(value.length !== 0){
+        if(value.length === 5){
             this.props.FetchWeather(newValue);
             this.props.FetchForecast(newValue);
         }else{
