@@ -6,9 +6,56 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #ededed;
+  background-image: url('./assets/grass.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+#mainWeatherSection{
+  margin-top: 35px;
+}
+#current{
+  background: #fff;
+  padding: 10px 15px 30px;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+.table  th {
+  color: #000;
+  background-color: #ededed;
+  border-color: #002366;
+}
+
+.table  tbody tr:nth-child(even){
+  background: #002366;
+  color:white;
+}
+
+.table  tbody tr:nth-child(odd){
+  background: #fff;
+  color:#002366;
+}
+
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  pointer-events: none;
+  color: #aaa;
 }
