@@ -1,8 +1,9 @@
 
-import {FETCH_WEATHER_BEGIN, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAIL} from '../actions/weatherActions';
+import {FETCH_WEATHER_BEGIN, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAIL, FETCH_FORECAST_SUCCESS} from '../actions/weatherActions';
 
 const initialState = {
-    cities: [],
+    city: [],
+    forecast: [],
     isFetching: false,
     error: null
 }
@@ -20,7 +21,14 @@ const fetchByZip  = (state = initialState, {type, payload}) => {
         return{
             ...state,
             isFetching:false,
-            cities: payload.cities,
+            city: payload.city,
+        }
+
+        case FETCH_FORECAST_SUCCESS:
+        return{
+            ...state,
+            isFetching:false,
+            forecast: payload.forecast,
         }
         case FETCH_WEATHER_FAIL:
         return{

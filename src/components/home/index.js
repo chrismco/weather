@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { fetchWeather } from '../../actions/weatherActions';
+import { fetchWeather, fetchAll} from '../../actions/weatherActions';
 import { fetchForecast } from '../../actions/fetchfiveDayForecast';
 import Forecast from '../weather/';
 import spinner from '../../assets/spinner.gif'
@@ -43,8 +43,9 @@ class Home extends Component {
     }
 
     componentDidMount = () => {
-        this.props.FetchWeather('77056')
-        this.props.FetchForecast('77056')
+        // this.props.FetchWeather('77056')
+        // this.props.FetchForecast('77056')
+        this.props.FetchAll('77056');
     }
 
 
@@ -64,17 +65,19 @@ class Home extends Component {
 
     }
     render() {
-        const { apiResponse, apiResponseForecast, isFetchingCity, isFetchingForecast } = this.props;
+        const { apiResponse, apiResponseForecast, isFetching } = this.props;
 
+        console.log(apiResponse)
+        
         return (
-            (isFetchingCity || isFetchingForecast) ? (
+            (isFetching) ? (
                 <div>
                     <img src={spinner} />
                 </div>
             ) : (
                     <div>
-                        <div class="form-group has-search">
-                        <span class="fa fa-search form-control-feedback"></span>
+                        <div className="form-group has-search">
+                        <span className="fa fa-search form-control-feedback"></span>
                             <input className="form-control" value={this.state.value} name="city" placeholder="Search by zip" onChange={this.handleChange} onKeyDown={this.handleKeyDown} />
                         </div>
                         <Forecast current={apiResponse} forecast={apiResponseForecast} />
@@ -86,14 +89,13 @@ class Home extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
-        { FetchWeather: fetchWeather, FetchForecast: fetchForecast }, dispatch);
+        { FetchAll:fetchAll,  FetchWeather: fetchWeather, FetchForecast: fetchForecast }, dispatch);
 }
 
 const mapStateToProps = state => ({
-    apiResponse: state.FetchWeatherByZip.cities,
-    apiResponseForecast: state.FetchFiveDayForecast.forecast,
-    isFetchingCity: state.FetchWeatherByZip.isFetching,
-    isFetchingForecast: state.FetchFiveDayForecast.isFetching,
-    error: state.FetchFiveDayForecast.error
+    apiResponse: state.FetchWeatherByZip.city,
+    apiResponseForecast: state.FetchWeatherByZip.forecast,
+    isFetching: state.FetchWeatherByZip.isFetching,
+    error: state.FetchWeatherByZip.error
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

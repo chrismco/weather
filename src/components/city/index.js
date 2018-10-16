@@ -29,6 +29,7 @@ class City extends Component {
             return count == 1 ? item.main: '';
         })
 
+     
 
         return (
             <div id="current">
