@@ -43,8 +43,6 @@ class Home extends Component {
     }
 
     componentDidMount = () => {
-        // this.props.FetchWeather('77056')
-        // this.props.FetchForecast('77056')
         this.props.FetchAll('77056');
     }
 
@@ -55,8 +53,7 @@ class Home extends Component {
 
 
         if(value.length === 5){
-            this.props.FetchWeather(newValue);
-            this.props.FetchForecast(newValue);
+            this.props.FetchAll(newValue);
         }else{
             return false;
         }
@@ -67,10 +64,10 @@ class Home extends Component {
     render() {
         const { apiResponse, apiResponseForecast, isFetching } = this.props;
 
-        console.log(apiResponse)
+        // console.log(apiResponse)
         
         return (
-            (isFetching) ? (
+            (isFetching)? (
                 <div>
                     <img src={spinner} />
                 </div>
@@ -89,7 +86,7 @@ class Home extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
-        { FetchAll:fetchAll,  FetchWeather: fetchWeather, FetchForecast: fetchForecast }, dispatch);
+        { FetchAll:fetchAll}, dispatch);
 }
 
 const mapStateToProps = state => ({
