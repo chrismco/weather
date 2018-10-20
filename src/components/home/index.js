@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
-import { fetchWeather, fetchAll} from '../../actions/weatherActions';
-import { fetchForecast } from '../../actions/fetchfiveDayForecast';
+import { fetchAll, fetchAllData } from '../../actions/weatherActions';
 import Forecast from '../weather/';
-import spinner from '../../assets/spinner.gif'
+import spinner from '../../assets/spinner.gif';
 import { bindActionCreators } from 'redux';
 
 const WAIT_INTERVAL = 1000;
@@ -15,7 +14,6 @@ class Home extends Component {
         super(props);
         this.state = {
             value: "",
-
         };
     }
 
@@ -43,7 +41,8 @@ class Home extends Component {
     }
 
     componentDidMount = () => {
-        this.props.FetchAll('77056');
+        // this.props.FetchAll('77056');
+       this.props.FetchAllData('77056');
     }
 
 
@@ -52,32 +51,31 @@ class Home extends Component {
         let newValue = parseInt(value);
 
 
-        if(value.length === 5){
+        if (value.length === 5) {
             this.props.FetchAll(newValue);
-        }else{
+        } else {
             return false;
         }
 
-     
+
 
     }
     render() {
-        const { apiResponse, apiResponseForecast, isFetching } = this.props;
+        const {isFetching, apiCityData, apiForecastData } = this.props;
 
-        // console.log(apiResponse)
         
         return (
-            (isFetching)? (
+            (isFetching || (!apiCityData || !apiForecastData)) ? (
                 <div>
                     <img src={spinner} />
                 </div>
             ) : (
                     <div>
                         <div className="form-group has-search">
-                        <span className="fa fa-search form-control-feedback"></span>
+                            <span className="fa fa-search form-control-feedback"></span>
                             <input className="form-control" value={this.state.value} name="city" placeholder="Search by zip" onChange={this.handleChange} onKeyDown={this.handleKeyDown} />
                         </div>
-                        <Forecast current={apiResponse} forecast={apiResponseForecast} />
+                        <Forecast current={apiCityData} forecast={apiForecastData}  />
                     </div>
                 )
         );
@@ -86,13 +84,13 @@ class Home extends Component {
 
 const mapDispatchToProps = (dispatch) => {
     return bindActionCreators(
-        { FetchAll:fetchAll}, dispatch);
+        {FetchAllData: fetchAllData }, dispatch);
 }
 
 const mapStateToProps = state => ({
-    apiResponse: state.FetchWeatherByZip.city,
-    apiResponseForecast: state.FetchWeatherByZip.forecast,
-    isFetching: state.FetchWeatherByZip.isFetching,
-    error: state.FetchWeatherByZip.error
+    apiCityData: state.FetchCityWeather.data[0],
+    apiForecastData: state.FetchCityWeather.data[1],
+    isFetching: state.FetchCityWeather.isFetching,
+    error: state.FetchCityWeather.error
 })
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

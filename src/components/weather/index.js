@@ -6,11 +6,10 @@ import City from '../city'
 const Forecast = ({current, forecast}) => {
    const {list} = forecast;
 
-
     return (
         <div>
-            <City city={current}/>
-            <FiveDayWeatherForecast forecastList={list}/>
+             <City city={current}/>
+             <FiveDayWeatherForecast forecastList={list}/> 
         </div>
     )
 }

@@ -1,11 +1,9 @@
 import {combineReducers} from 'redux';
-import FetchByZip  from './searchWeatherByCity';
-import FetchFiveDay  from './search5DayForecast';
+import FetchCityWeather  from './searchWeatherByCity';
 
 
 
 
 export default combineReducers({
-    FetchWeatherByZip: FetchByZip,
-    FetchFiveDayForecast: FetchFiveDay
+    FetchCityWeather: FetchCityWeather,
 });

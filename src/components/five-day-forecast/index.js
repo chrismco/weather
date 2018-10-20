@@ -16,6 +16,7 @@ class FiveDayWeatherForecast extends Component {
 
 
   dayOfWeek = data => {
+   console.log(new Date(data[0].dt).toLocaleString('en-US', {timeZone: 'UTC'}));
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return daysOfWeek[new Date(data[0].dt * 1000).getDay()];
   };
@@ -68,6 +69,7 @@ class FiveDayWeatherForecast extends Component {
     const { forecastList } = this.props;
 
     const forecastRows = forecastList ? Object.values(this.groupForecastByDays(forecastList)) : [];
+    const forecastGroup = forecastRows.length > 5 ? forecastRows.slice(0, 5) : forecastRows;
     // console.log(forecastRows)
 
     return (
@@ -81,7 +83,7 @@ class FiveDayWeatherForecast extends Component {
           </tr>
         </thead>
         <tbody>
-          {forecastRows.map((row, i) => (
+          {forecastGroup.map((row, i) => (
             <tr key={i} scope="row">
               <td><strong>{this.dayOfWeek(row)}</strong></td>
               <td>

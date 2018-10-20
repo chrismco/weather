@@ -2,13 +2,12 @@
 import {FETCH_WEATHER_BEGIN, FETCH_WEATHER_SUCCESS, FETCH_WEATHER_FAIL, FETCH_FORECAST_SUCCESS} from '../actions/weatherActions';
 
 const initialState = {
-    city: [],
-    forecast: [],
+    data: {},
     isFetching: false,
     error: null
 }
 
-const fetchByZip  = (state = initialState, {type, payload}) => {
+const fetchCityWeather  = (state = initialState, {type, payload}) => {
     switch(type){
         case FETCH_WEATHER_BEGIN:
         return {
@@ -16,33 +15,23 @@ const fetchByZip  = (state = initialState, {type, payload}) => {
             isFetching:true,
             error: null
         }
-
         case FETCH_WEATHER_SUCCESS:
         return{
             ...state,
             isFetching:false,
-            city: payload.city,
-        }
-
-        case FETCH_FORECAST_SUCCESS:
-        return{
-            ...state,
-            isFetching:false,
-            forecast: payload.forecast,
+            data: payload.weather,
         }
         case FETCH_WEATHER_FAIL:
         return{
             ...state,
             isFetching: false,
             error: payload.error,
-            cities: []
+            data: {}
         }
-        
-        
         default:
         return state;
         
     }
 }
 
-export default fetchByZip;
+export default fetchCityWeather;
