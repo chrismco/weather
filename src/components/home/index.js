@@ -52,7 +52,7 @@ class Home extends Component {
 
 
         if (value.length === 5) {
-            this.props.FetchAll(newValue);
+            this.props.FetchAllData(newValue);
         } else {
             return false;
         }

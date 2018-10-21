@@ -68,7 +68,7 @@ class FiveDayWeatherForecast extends Component {
   render() {
     const { forecastList } = this.props;
 
-    const forecastRows = forecastList ? Object.values(this.groupForecastByDays(forecastList)) : [];
+    const forecastRows = Object.values(this.groupForecastByDays(forecastList));
     const forecastGroup = forecastRows.length > 5 ? forecastRows.slice(0, 5) : forecastRows;
     // console.log(forecastRows)
 
